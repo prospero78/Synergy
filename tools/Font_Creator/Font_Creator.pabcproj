@@ -2,6 +2,7 @@
 <Project FileVersion="2" Name="Font_Creator" MainFile="Font_Creator.pas" OutputFileName="Font_Creator.exe" OutputDirectory="" ProjectType="ConsoleApp" IncludeDebugInfo="True" GenerateXMLDoc="False" CommandLineArguments="" AppIcon="" DeleteEXE="False" DeletePDB="True" Product="" Company="" Trademark="" Copyright="" MajorVersion="0" MinorVersion="0" BuildVersion="0" RevisionVersion="0">
   <Items>
     <Item Type="SourceFile" Name="Font_Creator.pas" Path="Font_Creator.pas" />
+    <Item Type="SourceFile" Name="Клетка.pas" Path="Клетка.pas" />
     <Item Type="Reference" AssemblyName="System" FullAssemblyName="System.dll" />
   </Items>
 </Project>
