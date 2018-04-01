@@ -6,6 +6,7 @@
 interface
 
 const
+   // Русские большие буквы
    ru_BigA = 0;//А
    ru_BigB = 1;//Б
    ru_BigW = 2;//В
@@ -24,17 +25,22 @@ const
    ru_BigO = 15;//О
    ru_BigP = 16;//П
    ru_BigR = 17;//Р
-   rus_BigS = 18;//С
-   rus_BigT = 19;//Т
-   rus_BigU = 20;//У
-   rus_BigF = 21;//Ф
-   rus_BigKh = 22;//Х
-   rus_BigTc = 23;//Ц
-   rus_BigCh = 24;//Ч
-   rus_BigSh = 25;//Ш
-   rus_BigShh = 26;//Щ
-   rus_BigHz = 27;//Ъ
-   rus_BigSz = 28;//Ь
+   ru_BigS = 18;//С
+   ru_BigT = 19;//Т
+   ru_BigU = 20;//У
+   ru_BigF = 21;//Ф
+   ru_BigKh = 22;//Х
+   ru_BigTc = 23;//Ц
+   ru_BigCh = 24;//Ч
+   ru_BigSh = 25;//Ш
+   ru_BigShh = 26;//Щ
+   ru_BigHz = 27;//Ъ
+   ru_BigY = 28;//Ы
+   ru_BigSz = 29;//Ь
+   ru_BigEh = 30;//Э
+   ru_BigYu = 31;//Ю
+   ru_BigJa = 32;//Я
+   
    space = 0;
 
 var
@@ -64,11 +70,15 @@ var
       (0, 62,73,73,73,73,62,8),//ru_BigF
       (0, 65,34,20,8,20,34,65),//ru_BigKh
       (0, 66,66,66,66,66,127,1),//ru_BigTc
-      (0, 65,65,65,63,1,1,1),//rus_BigCh
+      (0, 65,65,65,63,1,1,1),//ru_BigCh
       (0, 73,73,73,73,73,73,127),//rus_BigSh
-      (0, 84,84,84,84,84,126,2),//rus_BigShh
-      (0, 96,32,32,62,33,33,62),//rus_BigHz
-      (0, 64,64,64,126,65,65,126),//rus_BigSz
+      (0, 84,84,84,84,84,126,2),//ru_BigShh
+      (0, 96,32,32,62,33,33,62),//ru_BigHz
+      (0, 64,64,64,126,65,65,126),//ru_BigSz
+      (0, 65,65,65,121,69,69,121),//ru_BigY
+      (0, 62,65,1,31,1,65,62),//ru_BigEh
+      (0, 78,81,81,113,81,81,78),//ru_BigYu
+      (0, 63,65,65,63,9,17,97),//ru_BigJa
       
       (0, 0, 0, 0, 0, 0, 0, 0),//space
       

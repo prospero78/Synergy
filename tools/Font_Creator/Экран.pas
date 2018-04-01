@@ -37,7 +37,7 @@ type
          Font.Name := 'Consolas';
          Font.Size := 20;
          Brush.Color := clBlue;
-         TextOut(100,  400, 'KBK Technika ltd. 2018 vers. 0.8');
+         TextOut(100,  400, 'KBK Technika ltd. 2018 vers. 0.82');
       end;
    end;
 

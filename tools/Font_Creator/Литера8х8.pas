@@ -110,8 +110,8 @@ type
       _max: integer = 7;
       procedure _Мини_Рисовать;
       begin
-         var x_pos: integer = self.х_смещ + (self._max + 1) * self._размер + 200;
-         var y_pos: integer = self.у_смещ + 100;
+         var x_pos: integer = self.х_смещ + (((self._max + 1) * self._размер) shr 2 )+ 50;
+         var y_pos: integer = self.у_смещ + (self._max + 1) * self._размер + 50;
          for var y: integer := 0 to 7 do
             for var x: integer := 0 to 7 do
             begin
@@ -149,9 +149,10 @@ type
       у_смещ: integer = 50;
       property min: integer read _min;
       property max: integer read _max;
-      constructor Create(размер: integer);
+      constructor Create(размер, х_смещ: integer);
       begin
          self._размер := размер;
+         self.х_смещ := х_смещ;
          for var y := 0 to self._max do
          begin
             self.стр[y] := new тСтрока8х(размер, х_смещ, у_смещ + y * self._размер);
