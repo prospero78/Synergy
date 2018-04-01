@@ -110,7 +110,7 @@ type
       _max: integer = 7;
       procedure _Мини_Рисовать;
       begin
-      console.WriteLine('_Мини_Рисовать');
+         console.WriteLine('_Мини_Рисовать');
          var x_pos: integer = self.х_смещ + (self._max + 1) * self._размер + 200;
          var y_pos: integer = self.у_смещ + 100;
          for var y: integer := 0 to 7 do
@@ -122,6 +122,7 @@ type
                   SetPixel(x_pos + x, y_pos + y, clBlack);
             end;
       end;
+   
    public 
       /// Массив строк
       стр: array [0..7] of тСтрока8х;
@@ -161,10 +162,27 @@ type
             self.стр[y].Рисовать;
          self._Мини_Рисовать;
       end;
-      procedure Переключить(x,y:integer);
+      /// Переключение отдельных битов
+      procedure Переключить(x, y: integer);
       begin
-      self.стр[y].Переключить(x);
-      self._Мини_Рисовать;
+         self.стр[y].Переключить(x);
+         self._Мини_Рисовать;
+      end;
+      /// Рисует отметки напротив клеток по двум осям
+      procedure Оси_Рис;
+      begin
+         var x: integer := 7;
+         var x_pos: integer = self.х_смещ + (self._размер shr 2) - 2;
+         var y_pos: integer = self.у_смещ - (self._размер shr 2) - 13;
+         Font.Name:='Consolas';
+         Font.Size:=11;
+         //pen.Color:=clWhite;
+         Brush.Color:=clYellow;
+         while x > -1 do
+         begin
+            TextOut(x_pos + x * self._размер, y_pos, IntToStr(7-x));
+            x-=1;
+         end;
       end;
    end;
 
