@@ -4,6 +4,7 @@
     <Item Type="SourceFile" Name="Font_Creator.pas" Path="Font_Creator.pas" />
     <Item Type="SourceFile" Name="Литера8х8.pas" Path="Литера8х8.pas" />
     <Item Type="SourceFile" Name="Экран.pas" Path="Экран.pas" />
+    <Item Type="SourceFile" Name="Font8x8.pas" Path="Font8x8.pas" />
     <Item Type="Reference" AssemblyName="System" FullAssemblyName="System.dll" />
   </Items>
 </Project>
