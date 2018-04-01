@@ -1,6 +1,6 @@
 ﻿unit Литера8х8;
 
-uses GraphABC, System;
+uses GraphABC;
 
 type
    
@@ -68,7 +68,7 @@ type
       begin
          var sum := 0;
          for var i := 0 to 7 do
-            if self.тчк[i].сост then 
+            if self.тчк[7 - i].сост then 
                sum += (1 shl i);
          result := sum;
       end;
@@ -110,7 +110,6 @@ type
       _max: integer = 7;
       procedure _Мини_Рисовать;
       begin
-         console.WriteLine('_Мини_Рисовать');
          var x_pos: integer = self.х_смещ + (self._max + 1) * self._размер + 200;
          var y_pos: integer = self.у_смещ + 100;
          for var y: integer := 0 to 7 do
@@ -121,6 +120,24 @@ type
                else
                   SetPixel(x_pos + x, y_pos + y, clBlack);
             end;
+      end;
+      /// Отображение чисел после клика
+      procedure _Числа_Показ;
+      begin
+         var x_pos: integer = self.х_смещ + (self._max + 1) * self._размер + (self._размер shr 2);
+         var y_pos: integer = self.у_смещ + (self._размер shr 2);
+         var y: integer := self._max;
+         while y >= self._min do
+         begin
+            Font.Name := 'Consolas';
+            Font.Size := 11;
+            Brush.Color := clWhite;
+            var txt := IntToStr(self.стр[y].число);
+            while Length(txt) < 3 do
+               txt := ' ' + txt;
+            TextOut(x_pos,  y_pos + y * self._размер, txt);
+            y -= 1;
+         end;
       end;
    
    public 
@@ -135,7 +152,7 @@ type
       constructor Create(размер: integer);
       begin
          self._размер := размер;
-         for var y := 0 to 7 do
+         for var y := 0 to self._max do
          begin
             self.стр[y] := new тСтрока8х(размер, х_смещ, у_смещ + y * self._размер);
          end;
@@ -167,6 +184,7 @@ type
       begin
          self.стр[y].Переключить(x);
          self._Мини_Рисовать;
+         self._Числа_Показ;
       end;
       /// Рисует отметки напротив клеток по двум осям
       procedure Оси_Рис;
@@ -178,14 +196,14 @@ type
          Font.Name := 'Consolas';
          Font.Size := 11;
          Brush.Color := clYellow;
-         var x: integer := 7;
-         while x > -1 do
+         var x: integer := self._max;
+         while x >= self._min do
          begin
             TextOut(x_pos + x * self._размер, y_pos, IntToStr(7 - x));
             x -= 1;
          end;
-         var y: integer := 7;
-         while y > -1 do
+         var y: integer := self._max;
+         while y >= self._min do
          begin
             TextOut(x1_pos,  y1_pos + y * self._размер, IntToStr(y));
             y -= 1;

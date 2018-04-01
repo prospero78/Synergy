@@ -1,11 +1,11 @@
 ﻿{$product Font_Creator} 
-{$version 0.008} 
+{$version 0.8} 
 {$company KBK Techics ltd.} 
 {$copyright BSD-2-Clause} 
 { Font_Creator -- простенькая программа для создания растровых шрифтов.
   Пока поддерживается только один размер -- 8х8 точек. }
 
-uses GraphABC, Литера8х8, System, Экран;
+uses GraphABC, Литера8х8, Экран;
 
 const
    /// Размер одного элемента
@@ -20,12 +20,9 @@ var
 /// Обработчик нажатий мыши
 procedure Мышь_Нажата(x, y, mb: integer);
 begin
-   экран.текст := ' x=' + IntToStr(x) + ';   y=' + IntToStr(y) + ';';
-   //Assert((x >= 0) and (x <= 7));//допустимый диапазон
    if лит.Провер(x, y) then
    begin
-      console.WriteLine('x=' + IntToStr( x));
-      лит.Переключить(x,y);
+      лит.Переключить(x, y);
    end;
 end;
 

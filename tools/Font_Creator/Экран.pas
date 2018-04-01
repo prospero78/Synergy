@@ -10,7 +10,7 @@ type
    private 
       _ширина: integer = 640;
       _высота: integer = 480;
-      _назв: string = '"Font Creator 8x"';
+      _назв: string = '"Font Creator 8x8"';
       _текст: string = '';
       procedure _Текст_Уст(текст: string);
       begin
@@ -34,6 +34,10 @@ type
          Window.Width := self._ширина;
          Window.Title := self._Текст_Получ;
          Window.Clear(clBlack);
+         Font.Name := 'Consolas';
+         Font.Size := 20;
+         Brush.Color := clBlue;
+         TextOut(100,  400, 'KBK Technika ltd. 2018 vers. 0.8');
       end;
    end;
 
