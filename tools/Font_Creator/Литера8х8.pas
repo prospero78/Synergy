@@ -1,6 +1,6 @@
 ﻿unit Литера8х8;
 
-uses GraphABC;
+uses GraphABC, System;
 
 type
    
@@ -20,6 +20,7 @@ type
          self._размер := размер;
          self._х_поз := х_поз;
          self._у_поз := у_поз;
+         self.Рисовать;
       end;
       /// Переключение состояния точки
       procedure Переключить;
@@ -42,14 +43,15 @@ type
          if self._сост then
          begin
             Brush.Color := RGB($FF, $FF, $80);
-            FillRect(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер); 
+            FillRect(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер);
          end
          else
          begin
             Brush.Color := RGB(0, 0, 0);
             FillRect(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер);
             Brush.Color := RGB($70, $70, $70);
-            DrawRectangle(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер);
+            //DrawRectangle(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер);
+            Rectangle(self._х_поз, self._у_поз, self._х_поз + self._размер, self._у_поз + self._размер);
          end;
       end;
    end;
@@ -106,6 +108,20 @@ type
       _размер: integer = 10;
       _min: integer = 0;
       _max: integer = 7;
+      procedure _Мини_Рисовать;
+      begin
+      console.WriteLine('_Мини_Рисовать');
+         var x_pos: integer = self.х_смещ + (self._max + 1) * self._размер + 200;
+         var y_pos: integer = self.у_смещ + 100;
+         for var y: integer := 0 to 7 do
+            for var x: integer := 0 to 7 do
+            begin
+               if self.стр[y].тчк[x].сост then
+                  SetPixel(x_pos + x, y_pos + y, clGray)
+               else
+                  SetPixel(x_pos + x, y_pos + y, clBlack);
+            end;
+      end;
    public 
       /// Массив строк
       стр: array [0..7] of тСтрока8х;
@@ -124,19 +140,31 @@ type
          end;
       end;
       /// Проверяет находятся ли x, y в допустимом диапазоне   
-      function Провер(x, y: integer): boolean;
+      function Провер(var x, y: integer): boolean;
       var
          _res: boolean = False;
       begin
-         if (x >= self._min) and (x <= self._max) and (y >= self._min) and (y <= self._max) then
-            _res := True;
-         Result := _res;
+         if (x >= self.х_смещ) and (x <= self.х_смещ + (self._max + 1) * self._размер) and
+            (y >= self.у_смещ) and (y <= self.у_смещ + (self._max + 1) * self._размер) then
+         begin
+            x := (x - self.х_смещ) div self._размер;
+            y := (y - self.у_смещ) div self._размер;
+            if (x >= self._min) and (x <= self._max) and (y >= self._min) and (y <= self._max) then
+               _res := True;
+            Result := _res;
+         end;
       end;
       /// Рисует литеру целиком
       procedure Рисовать;
       begin
          for var y := 0 to 7 do
             self.стр[y].Рисовать;
+         self._Мини_Рисовать;
+      end;
+      procedure Переключить(x,y:integer);
+      begin
+      self.стр[y].Переключить(x);
+      self._Мини_Рисовать;
       end;
    end;
 
