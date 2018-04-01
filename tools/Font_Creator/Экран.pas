@@ -9,7 +9,7 @@ type
    тЭкран = class
    private 
       _ширина: integer = 640;
-      _высота: integer = 800;
+      _высота: integer = 480;
       _назв: string = '"Font Creator 8x"';
       _текст: string = '';
       procedure _Текст_Уст(текст: string);

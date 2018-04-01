@@ -171,17 +171,24 @@ type
       /// Рисует отметки напротив клеток по двум осям
       procedure Оси_Рис;
       begin
-         var x: integer := 7;
          var x_pos: integer = self.х_смещ + (self._размер shr 2) - 2;
+         var x1_pos: integer = x_pos - (self._размер shr 2) - 10;
          var y_pos: integer = self.у_смещ - (self._размер shr 2) - 13;
-         Font.Name:='Consolas';
-         Font.Size:=11;
-         //pen.Color:=clWhite;
-         Brush.Color:=clYellow;
+         var y1_pos: integer = self.у_смещ + (self._размер shr 2);
+         Font.Name := 'Consolas';
+         Font.Size := 11;
+         Brush.Color := clYellow;
+         var x: integer := 7;
          while x > -1 do
          begin
-            TextOut(x_pos + x * self._размер, y_pos, IntToStr(7-x));
-            x-=1;
+            TextOut(x_pos + x * self._размер, y_pos, IntToStr(7 - x));
+            x -= 1;
+         end;
+         var y: integer := 7;
+         while y > -1 do
+         begin
+            TextOut(x1_pos,  y1_pos + y * self._размер, IntToStr(y));
+            y -= 1;
          end;
       end;
    end;
