@@ -6,7 +6,7 @@
 { Font_Creator -- простенькая программа для создания растровых шрифтов.
   Пока поддерживается только один размер -- 8х8 точек. }
 
-uses GraphABC, Клетка;
+uses GraphABC, Литера8х8, System;
 
 const
    /// Название утилиты
@@ -21,10 +21,12 @@ const
    step = 30;
    /// Полная ширина сетки
    full = step * 8;
+   /// Размер одного элемента
+   размер = 30;
 
 var
    /// Массив ячеек для хрнения состояния битов
-   лит: тКлетка;
+   лит: тЛит8х8;
 
 /// Первичная настройка экрана
 procedure Экран_Настроить;
@@ -69,35 +71,24 @@ begin
    end;
 end;
 
-/// Нарисовать клетку
-procedure Клетка_Нарисовать(x, y: integer);
-begin
-   x := base_i + x * step;
-   y := base_i + y * step;
-   if (x > base_i) and (x < base_i + full) then
-   begin
-      if (y > base_i * 2) and (y < base_i * 2 + full) then
-      begin
-         FillRect(x - 15, y - 15, x + 15, y + 15);
-         //Сетка_Рисовать;
-      end;
-   end;
-end;
-
 /// Обработчик нажатий мыши
 procedure Мышь_Нажата(x, y, mb: integer);
 begin
    Window.Title := strUtil + ' x=' + IntToStr(x) + ';   y=' + IntToStr(y) + ';';
-   Brush.Color := RGB($FF, $FF, $80);
-   x := (x div 30) * 30;
-   y := (y div 30) * 30;
-   лит.стр[x].Переключить(y);
-   if лит.стр[x].тчк[y].сост then
-      Клетка_Нарисовать(x,y);
+   x := (x - base_i) div 30;
+   y := (y - base_i) div 30;
+   console.WriteLine('x=' + IntToStr( x));
+   //Assert((x >= 0) and (x <= 7));//допустимый диапазон
+   if лит.Провер(x, y) then
+   begin
+      лит.стр[y].Переключить(x);
+   end;
 end;
 
 begin
+   лит := new тЛит8х8(размер);
    OnMouseDown := Мышь_Нажата;
    Экран_Настроить;
    Сетка_Рисовать;
+   лит.Рисовать;
 end.
