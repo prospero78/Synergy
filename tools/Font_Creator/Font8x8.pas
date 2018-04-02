@@ -19,7 +19,41 @@ const
    dig_9 = dig_8 + 1;
    
    // Всякие служебные литеры
-   hlp_space = ?;
+   hlp_space = dig_9 + 1;// (пробел)
+   hlp_strike = hlp_space + 1;// (подчёркивание)
+   hlp_minus = hlp_strike + 1;// (минус)
+   hlp_plus = hlp_minus + 1;// (плюс)
+   hlp_multi = hlp_plus + 1;// (умножить)
+   hlp_div = hlp_multi + 1;// (деление)
+   hlp_comma = hlp_div + 1;// (запятая)
+   hlp_dot = hlp_comma + 1;// (точка)
+   hlp_lrb = hlp_dot + 1;// (левая круглая скобка)
+   hlp_rrb = hlp_lrb + 1;// (правая круглая скобка)
+   hlp_lsb = hlp_rrb + 1;// (левая квадратная скобка)
+   hlp_rsb = hlp_lsb + 1;// (правая квадратная скобка)
+   hlp_dqt = hlp_rsb + 1;// (двойные кавычки)
+   hlp_sqt = hlp_dqt + 1;// (одиночные кавычки)
+   hlp_apo = hlp_sqt + 1;// (апостроф)
+   hlp_tilda = hlp_apo + 1;// (tilda)
+   hlp_akk = hlp_tilda + 1;// (восклицательный знак)
+   hlp_bang = hlp_akk + 1;// (решётка)
+   hlp_numer = hlp_bang + 1;// (номер)
+   hlp_dol = hlp_numer + 1;// (доллар)
+   hlp_cdot = hlp_dol + 1;// (точка с запятой)
+   hlp_percent = hlp_cdot + 1;// (процент)
+   hlp_ddot = hlp_percent + 1;// (двоеточие)
+   hlp_amp = hlp_ddot + 1;// (амперсанд)
+   hlp_qst = hlp_amp + 1;// (вопрос)
+   hlp_equ = hlp_qst + 1;// (равно)
+   hlp_slh = hlp_equ + 1;// (слэш)
+   hlp_bslh = hlp_slh + 1;// (обратный слэш)
+   hlp_lequ = hlp_bslh + 1;// (меньше)
+   hlp_requ = hlp_lequ + 1;// (больше)
+   hlp_exp  = hlp_requ + 1;// (степень)
+   hlp_lfb = hlp_exp + 1;// (левая фигурная скобка)
+   hlp_rfb = hlp_lfb + 1;// (правая фигурная скобка)
+   
+   // Английские большие буквы
    
    
    // Русские большие буквы
@@ -139,6 +173,8 @@ var
       (3, 12, 48, 64, 48, 12, 3),//hlp_lequ (меньше)
       (96, 24, 6, 1, 6, 24, 96),//hlp_requ (больше)
       (8, 20, 34, 65, 0, 0, 0),//hlp_exp (степень)
+      (12,16,16,112,16,16,12),//hlp_lfb (левая фигурная скобка)
+      (48,8,8,14,8,8,48),//hlp_rfb (правая фигурная скобка)
       
       (3, 5, 9, 17, 63, 65, 65),//ru_BigA
       (126, 64, 126, 65, 65, 65, 126),//ru_BigB
