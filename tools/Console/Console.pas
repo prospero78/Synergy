@@ -3,5 +3,6 @@
 {$reference terminal.dll}
 
 begin
-terminal.terminal.Начать ;
+   // Надо для правильного запуска terminal.dll
+   terminal.terminal.Start;
 end.

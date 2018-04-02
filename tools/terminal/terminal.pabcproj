@@ -3,6 +3,7 @@
   <Items>
     <Item Type="SourceFile" Name="terminal.pas" Path="terminal.pas" />
     <Item Type="SourceFile" Name="Font8x8.pas" Path="Font8x8.pas" />
+    <Item Type="SourceFile" Name="Monitor.pas" Path="Monitor.pas" />
     <Item Type="Reference" AssemblyName="System" FullAssemblyName="System.dll" />
   </Items>
 </Project>
