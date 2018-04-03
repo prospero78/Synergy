@@ -14,49 +14,49 @@ type
          // 1. Печатаем точки побитно
          var bit := 0;
          bit := байт and 128;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 0, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 0, self.y_pos, clBlack);
          
          bit := байт and 64;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 1, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 1, self.y_pos, clBlack);
          
          bit := байт and 32;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 2, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 2, self.y_pos, clBlack);
          
          bit := байт and 16;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 3, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 3, self.y_pos, clBlack);
                
          bit := байт and 8;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 4, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 4, self.y_pos, clBlack);
          
          bit := байт and 4;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 5, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 5, self.y_pos, clBlack);
                
          bit := байт and 2;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 6, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 6, self.y_pos, clBlack);
                
          bit := байт and 1;
-            if bit = 1 then
+            if bit = 0 then
                SetPixel(self.x_pos + 7, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 7, self.y_pos, clBlack);
@@ -124,7 +124,7 @@ type
             'ы': self._лит := self.лит.рус.sY;
             'ь': self._лит := self.лит.рус.sSz;
             'э': self._лит := self.лит.рус.sEh;
-            'ю': self._лит := self.лит.рус.sY;
+            'ю': self._лит := self.лит.рус.sYu;
             'я': self._лит := self.лит.рус.sJa ;
          end;
       end;
