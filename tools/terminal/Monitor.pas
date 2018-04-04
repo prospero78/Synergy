@@ -14,62 +14,62 @@ type
          // 1. Печатаем точки побитно
          var bit := 0;
          bit := байт and 128;
-            if bit = 128 then
-               SetPixel(self.x_pos + 0, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 0, self.y_pos, clBlack);
+         if bit = 128 then
+            SetPixel(self.x_pos + 0, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 0, self.y_pos, clBlack);
          
          bit := байт and 64;
-            if bit = 64 then
-               SetPixel(self.x_pos + 1, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 1, self.y_pos, clBlack);
+         if bit = 64 then
+            SetPixel(self.x_pos + 1, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 1, self.y_pos, clBlack);
          
          bit := байт and 32;
-            if bit = 32 then
-               SetPixel(self.x_pos + 2, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 2, self.y_pos, clBlack);
+         if bit = 32 then
+            SetPixel(self.x_pos + 2, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 2, self.y_pos, clBlack);
          
          bit := байт and 16;
-            if bit = 16 then
-               SetPixel(self.x_pos + 3, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 3, self.y_pos, clBlack);
-               
+         if bit = 16 then
+            SetPixel(self.x_pos + 3, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 3, self.y_pos, clBlack);
+         
          bit := байт and 8;
-            if bit = 8 then
-               SetPixel(self.x_pos + 4, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 4, self.y_pos, clBlack);
+         if bit = 8 then
+            SetPixel(self.x_pos + 4, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 4, self.y_pos, clBlack);
          
          bit := байт and 4;
-            if bit = 4 then
-               SetPixel(self.x_pos + 5, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 5, self.y_pos, clBlack);
-               
+         if bit = 4 then
+            SetPixel(self.x_pos + 5, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 5, self.y_pos, clBlack);
+         
          bit := байт and 2;
-            if bit = 2 then
-               SetPixel(self.x_pos + 6, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 6, self.y_pos, clBlack);
-               
+         if bit = 2 then
+            SetPixel(self.x_pos + 6, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 6, self.y_pos, clBlack);
+         
          bit := байт and 1;
-            if bit = 1 then
-               SetPixel(self.x_pos + 7, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + 7, self.y_pos, clBlack);
-               
-        { var маска := 32;
-        for var x := 2 to 7 do
+         if bit = 1 then
+            SetPixel(self.x_pos + 7, self.y_pos, clWhite)
+         else
+            SetPixel(self.x_pos + 7, self.y_pos, clBlack);
+         
+         { var маска := 32;
+         for var x := 2 to 7 do
          begin
-            маска := маска div 2;
-            bit := байт and маска;
-            if bit = 1 then
-               SetPixel(self.x_pos + x, self.y_pos, clWhite)
-            else
-               SetPixel(self.x_pos + x, self.y_pos, clBlack);
+         маска := маска div 2;
+         bit := байт and маска;
+         if bit = 1 then
+         SetPixel(self.x_pos + x, self.y_pos, clWhite)
+         else
+         SetPixel(self.x_pos + x, self.y_pos, clBlack);
          end;}
       end;
       /// Печать выбранной литеры
@@ -83,11 +83,17 @@ type
             // Отправляем байт на печать
             self._Байт_Печать(байт);
             self.y_pos += 1;
-            Console.Write(IntToStr(байт)+' ');
+            Console.Write(IntToStr(байт) + ' ');
          end;
          Console.WriteLine;
          self.x_pos += 8;
          self.y_pos -= 8;
+         // если в знакоместах достигнут предел
+         if self._х_лит_предел * 8 = self.x_pos then
+         begin
+            self.x_pos := 0;
+            self.y_pos += 8;
+         end;
       end;
       /// Выбор русской малой литеры
       procedure _РусМал_Выбор(лит: char);
@@ -176,6 +182,10 @@ type
             self._РусБол_Выбор(лит);
          ;
       end;
+      /// Проверка нажатия спец клавиш
+      procedure _Клав_Нажать(клав: integer);
+      begin
+      end;
    
    public 
       /// Позиция курсора по Х
@@ -186,6 +196,12 @@ type
       _лит: тМасЛит;
       /// Набор всех литер
       лит: тЛитера;
+      /// Позиция в литерах
+      _х_лит: integer = 0;
+      _у_лит: integer = 0;
+      /// Предельная позиция знакоместа.
+      _х_лит_предел: integer = 40;// (8x40=320)
+      _у_лит_предел: integer = 30;// (8x30=240)
       constructor Create;
       begin
          Window.Title := 'Test terminal';
