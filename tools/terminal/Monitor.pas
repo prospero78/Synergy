@@ -14,49 +14,49 @@ type
          // 1. Печатаем точки побитно
          var bit := 0;
          bit := байт and 128;
-            if bit = 0 then
+            if bit = 128 then
                SetPixel(self.x_pos + 0, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 0, self.y_pos, clBlack);
          
          bit := байт and 64;
-            if bit = 0 then
+            if bit = 64 then
                SetPixel(self.x_pos + 1, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 1, self.y_pos, clBlack);
          
          bit := байт and 32;
-            if bit = 0 then
+            if bit = 32 then
                SetPixel(self.x_pos + 2, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 2, self.y_pos, clBlack);
          
          bit := байт and 16;
-            if bit = 0 then
+            if bit = 16 then
                SetPixel(self.x_pos + 3, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 3, self.y_pos, clBlack);
                
          bit := байт and 8;
-            if bit = 0 then
+            if bit = 8 then
                SetPixel(self.x_pos + 4, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 4, self.y_pos, clBlack);
          
          bit := байт and 4;
-            if bit = 0 then
+            if bit = 4 then
                SetPixel(self.x_pos + 5, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 5, self.y_pos, clBlack);
                
          bit := байт and 2;
-            if bit = 0 then
+            if bit = 2 then
                SetPixel(self.x_pos + 6, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 6, self.y_pos, clBlack);
                
          bit := байт and 1;
-            if bit = 0 then
+            if bit = 1 then
                SetPixel(self.x_pos + 7, self.y_pos, clWhite)
             else
                SetPixel(self.x_pos + 7, self.y_pos, clBlack);
@@ -128,12 +128,52 @@ type
             'я': self._лит := self.лит.рус.sJa ;
          end;
       end;
+      /// Выбор русской большой литеры
+      procedure _РусБол_Выбор(лит: char);
+      begin
+         case лит of
+            'А': self._лит := self.лит.рус.bA;
+            'Б': self._лит := self.лит.рус.bB;
+            'В': self._лит := self.лит.рус.bW;
+            'Г': self._лит := self.лит.рус.bG;
+            'Д': self._лит := self.лит.рус.bD;
+            'Е': self._лит := self.лит.рус.bE;
+            'Ё': self._лит := self.лит.рус.bE2;
+            'Ж': self._лит := self.лит.рус.bZh;
+            'З': self._лит := self.лит.рус.bZ;
+            'И': self._лит := self.лит.рус.bI;
+            'Й': self._лит := self.лит.рус.bI2;
+            'К': self._лит := self.лит.рус.bK;
+            'Л': self._лит := self.лит.рус.bL;
+            'М': self._лит := self.лит.рус.bM;
+            'Н': self._лит := self.лит.рус.bN;
+            'О': self._лит := self.лит.рус.bO;
+            'П': self._лит := self.лит.рус.bP;
+            'Р': self._лит := self.лит.рус.bR;
+            'С': self._лит := self.лит.рус.bS;
+            'Т': self._лит := self.лит.рус.bT;
+            'У': self._лит := self.лит.рус.bU;
+            'Ф': self._лит := self.лит.рус.bF;
+            'Х': self._лит := self.лит.рус.bKh;
+            'Ц': self._лит := self.лит.рус.bTc;
+            'Ч': self._лит := self.лит.рус.bCh;
+            'Ш': self._лит := self.лит.рус.bSh;
+            'Щ': self._лит := self.лит.рус.bShh;
+            'Ъ': self._лит := self.лит.рус.bHz;
+            'Ы': self._лит := self.лит.рус.bY;
+            'Ь': self._лит := self.лит.рус.bSz;
+            'Э': self._лит := self.лит.рус.bEh;
+            'Ю': self._лит := self.лит.рус.bYu;
+            'Я': self._лит := self.лит.рус.bJa ;
+         end;
+      end;
       /// Выбор литеры из списка
       procedure _Лит_Выбор(лит: char);
       begin
          self._лит[0] := 255;//Не может быть больше 127 -- индикатор присвоения
          self._РусМал_Выбор(лит);
          if self._лит[0] = 255 then// Выбора не было, если 255
+            self._РусБол_Выбор(лит);
          ;
       end;
    
