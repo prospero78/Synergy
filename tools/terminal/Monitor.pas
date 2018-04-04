@@ -205,6 +205,38 @@ type
             'z': self._лит := self.лит.анг.sZ;
          end;
       end;
+      /// Выбор английской малой буквы
+      procedure _АнгБол_Выбор(лит: char);
+      begin
+         case лит of
+            'A': self._лит := self.лит.анг.bA;
+            'B': self._лит := self.лит.анг.bB;
+            'C': self._лит := self.лит.анг.bC;
+            'D': self._лит := self.лит.анг.bD;
+            'E': self._лит := self.лит.анг.bE;
+            'F': self._лит := self.лит.анг.bF;
+            'G': self._лит := self.лит.анг.bG;
+            'H': self._лит := self.лит.анг.bH;
+            'I': self._лит := self.лит.анг.bI;
+            'J': self._лит := self.лит.анг.bJ;
+            'K': self._лит := self.лит.анг.bK;
+            'L': self._лит := self.лит.анг.bL;
+            'M': self._лит := self.лит.анг.bM;
+            'N': self._лит := self.лит.анг.bN;
+            'O': self._лит := self.лит.анг.bO;
+            'P': self._лит := self.лит.анг.bP;
+            'Q': self._лит := self.лит.анг.bQ;
+            'R': self._лит := self.лит.анг.bR;
+            'S': self._лит := self.лит.анг.bS;
+            'T': self._лит := self.лит.анг.bT;
+            'U': self._лит := self.лит.анг.bU;
+            'V': self._лит := self.лит.анг.bV;
+            'W': self._лит := self.лит.анг.bW;
+            'X': self._лит := self.лит.анг.bX;
+            'Y': self._лит := self.лит.анг.bY;
+            'Z': self._лит := self.лит.анг.bZ;
+         end;
+      end;
       /// Выбор литеры из списка
       procedure _Лит_Выбор(лит: char);
       begin
@@ -214,6 +246,8 @@ type
             self._РусБол_Выбор(лит);
          if self._лит[0] = 255 then// Выбора не было, если 255
             self._АнгМал_Выбор(лит);
+         if self._лит[0] = 255 then// Выбора не было, если 255
+            self._АнгБол_Выбор(лит);   
       end;
       /// Проверка нажатия спец клавиш
       procedure _Клав_Нажать(клав: integer);
