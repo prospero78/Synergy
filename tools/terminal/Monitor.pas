@@ -253,6 +253,46 @@ type
             '9': self._лит := self.лит.циф.d9;
          end;
       end;
+      /// Специальные литеры цифры
+      procedure _Спец_Выбор(лит: char);
+      begin
+         case лит of
+            ' ': self._лит := self.лит.спец.space;
+            '_': self._лит := self.лит.спец.strike;
+            '-': self._лит := self.лит.спец.minus;
+            '+': self._лит := self.лит.спец.plus;
+            '*': self._лит := self.лит.спец.multi;
+            ',': self._лит := self.лит.спец.comma;
+            '.': self._лит := self.лит.спец.dot;
+            '(': self._лит := self.лит.спец.lrb;
+            ')': self._лит := self.лит.спец.rrb;
+            '[': self._лит := self.лит.спец.lsb;
+            ']': self._лит := self.лит.спец.rsb;
+            '"': self._лит := self.лит.спец.dqt;
+            '''' : self._лит := self.лит.спец.sqt;
+            '`': self._лит := self.лит.спец.apo;
+            '~': self._лит := self.лит.спец.tilda;
+            '!': self._лит := self.лит.спец.akk;
+            '№': self._лит := self.лит.спец.numer;
+            '#': self._лит := self.лит.спец.bang;
+            '$': self._лит := self.лит.спец.dol;
+            ';': self._лит := self.лит.спец.cdot;
+            '%': self._лит := self.лит.спец.percent;
+            ':': self._лит := self.лит.спец.ddot;
+            '&': self._лит := self.лит.спец.amp;
+            '?': self._лит := self.лит.спец.qst;
+            '=': self._лит := self.лит.спец.equ;
+            '/': self._лит := self.лит.спец.slh;
+            '\': self._лит := self.лит.спец.bslh;
+            '<': self._лит := self.лит.спец.lequ;
+            '>': self._лит := self.лит.спец.requ;
+            '^': self._лит := self.лит.спец.exp;
+            '{': self._лит := self.лит.спец.lfb;
+            '}': self._лит := self.лит.спец.rfb;
+            '@': self._лит := self.лит.спец.hun;
+            '|': self._лит := self.лит.спец.vert;
+         end;
+      end;
       /// Выбор литеры из списка
       procedure _Лит_Выбор(лит: char);
       begin
@@ -265,7 +305,9 @@ type
          if self._лит[0] = 255 then// Выбора не было, если 255
             self._АнгБол_Выбор(лит);
          if self._лит[0] = 255 then// Выбора не было, если 255
-            self._Цифра_Выбор(лит);   
+            self._Цифра_Выбор(лит); 
+         if self._лит[0] = 255 then// Выбора не было, если 255
+            self._Спец_Выбор(лит);    
       end;
       /// Проверка нажатия спец клавиш
       procedure _Клав_Нажать(клав: integer);
@@ -308,7 +350,8 @@ type
          // Выбрать литеру
          self._Лит_Выбор(лит);
          // Теперь напечатать литеру
-         self._Лит_Печать;
+         if self._лит[0]<>255 then
+            self._Лит_Печать;
       end;
    end;
 
