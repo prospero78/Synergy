@@ -3,7 +3,7 @@
 
 interface
 
-uses Font8x8, GraphABC, System;
+uses Font8x8, GraphABC, System, Timers;
 
 type
    тЭкран = class
@@ -269,7 +269,7 @@ type
             '[': self._лит := self.лит.спец.lsb;
             ']': self._лит := self.лит.спец.rsb;
             '"': self._лит := self.лит.спец.dqt;
-            '''' : self._лит := self.лит.спец.sqt;
+            '''': self._лит := self.лит.спец.sqt;
             '`': self._лит := self.лит.спец.apo;
             '~': self._лит := self.лит.спец.tilda;
             '!': self._лит := self.лит.спец.akk;
@@ -329,6 +329,28 @@ type
       /// Предельная позиция знакоместа.
       _х_лит_предел: integer = 40;// (8x40=320)
       _у_лит_предел: integer = 30;// (8x30=240)
+      /// Состояние курсора
+      _курс_показ: boolean = false;
+      /// Таймер для курсора
+      _таймер_курсор : Timer;
+      /// Таймер мерцания курсора
+      procedure _Курсор_Мерцать;
+      {$omp critical section}
+      begin
+         if _курс_показ then
+         begin
+            self._лит := self.лит.спец.space;
+            _курс_показ := false;
+         end
+         else
+         begin
+            self._лит := self.лит.спец.strike;
+            _курс_показ := true;
+         end;
+         self._Лит_Печать;
+         self.x_pos -= 8;
+      end;
+      
       constructor Create;
       begin
          Window.Title := 'Test terminal';
@@ -342,6 +364,9 @@ type
          /// Регистрируем обработчик нажатий клавиатуры
          OnKeyPress := self.Клик;
          self.лит := new тЛитера;
+         /// Назначаем мигалку курсору
+         _таймер_курсор := new Timer(500, self._Курсор_Мерцать);
+         _таймер_курсор.Start;
       end;
       /// Процедура обработки нажатий на клавиши
       procedure Клик(лит: char);
@@ -350,7 +375,7 @@ type
          // Выбрать литеру
          self._Лит_Выбор(лит);
          // Теперь напечатать литеру
-         if self._лит[0]<>255 then
+         if self._лит[0] <> 255 then
             self._Лит_Печать;
       end;
    end;
