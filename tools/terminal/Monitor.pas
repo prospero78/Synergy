@@ -8,16 +8,24 @@ uses Font8x8, GraphABC, System, Timers;
 type
    тЭкран = class
    private 
-      /// Позиция в литерах
+      /// Позиция в литерах по х
       _х_лит: integer = 0;
+      /// Позиция в литерах по y
       _у_лит: integer = 0;
-      /// Предельная позиция знакоместа.
+      /// Предельная позиция знакоместа в x
       _х_лит_предел: integer = 40;// (8x40=320)
+      /// Предельная позиция знакоместа в y
       _у_лит_предел: integer = 30;// (8x30=240)
       /// Состояние курсора
       _курс_показ: boolean = false;
+      /// Признак печати курсора
+      _курс_печать: boolean = false;
+      /// Признак скроллирования экрана
+      _скроллинг: boolean = false;
       /// Таймер для курсора
       _таймер_курсор: Timer;
+      /// Массив всех символов на экране
+      _текст: string = '';
       /// Печать выбранного байта
       procedure _Байт_Печать(байт: byte);
       begin
@@ -83,7 +91,7 @@ type
          end;}
       end;
       /// Печать выбранной литеры
-      procedure _Лит_Печать(курсор: boolean);
+      procedure _Лит_Печать;
       begin
          // цикл по массиву байтов
          var байт := 0;
@@ -93,9 +101,9 @@ type
             // Отправляем байт на печать
             self._Байт_Печать(байт);
             self.y_pos += 1;
-            Console.Write(IntToStr(байт) + ' ');
+            //Console.Write(IntToStr(байт) + ' ');
          end;
-         Console.WriteLine;
+         //Console.WriteLine;
          self.x_pos += 8;
          self.y_pos -= 8;
          // если в знакоместах достигнут предел
@@ -104,9 +112,14 @@ type
             self.x_pos := 0;
             self.y_pos += 8;
          end;
-         if курсор then
+         if self._курс_печать then
+         begin
             self.x_pos -= 8;
-        Redraw;
+            self._курс_печать := false;
+         end;
+         // скроллинг снимается в вызывающей процедуре
+         if not self._скроллинг then
+            Redraw;
       end;
       /// Выбор русской малой литеры
       procedure _РусМал_Выбор(лит: char);
@@ -335,12 +348,36 @@ type
             self._лит := self.лит.спец.strike;
             _курс_показ := true;
          end;
-         self._Лит_Печать(true);
+         self._курс_печать:=true;
+         self._Лит_Печать;
       end;
+      /// Добавление новой литеры в массив литер
+      procedure _Текст_Добавить(лит: char);
+      begin
+         self._текст := self._текст + лит;
+         if self._текст.Length = self._х_лит_предел * self._у_лит_предел then
+         begin
+            self._текст := self._текст.Remove(0, 40);
+            self.x_pos := 0;
+            self.y_pos := 0;
+            self._х_лит := 0;
+            self._у_лит := 0;
+            Window.Clear(clBlack);
+            self._скроллинг := true;
+            for var i := 1 to self._текст.Length do
+            begin
+               self._Лит_Выбор(self._текст[i]);
+               self._Лит_Печать;
+            end;
+            self._скроллинг := false;
+            Redraw;
+         end;
+      end;
+   
    public 
-      /// Позиция курсора по Х
+      /// Позиция точки по Х
       x_pos: integer = 0;
-      /// Позиция курсора по Y
+      /// Позиция точки по Y
       y_pos: integer = 0;
       /// Текущая литера
       _лит: тМасЛит;
@@ -376,7 +413,9 @@ type
          self._Лит_Выбор(лит);
          // Теперь напечатать литеру
          if self._лит[0] <> 255 then
-            self._Лит_Печать(false);
+            self._Лит_Печать;
+         // Добавляем литеру в текст
+         self._Текст_Добавить(лит);
          // Запускаем таймер курсора
          self._таймер_курсор.Start;
       end;
